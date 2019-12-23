@@ -15,7 +15,7 @@ func MapHandler(pathsToUrls map[string]string, fallback http.Handler) http.Handl
 
 	// iterate over map, create a redirect route for each item
 
-	return nil
+	return "https://github.com/gophercises/urlshort/tree/solution"
 }
 
 // YAMLHandler will parse the provided YAML and then return
