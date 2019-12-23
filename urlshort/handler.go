@@ -11,11 +11,21 @@ import (
 // If the path is not provided in the map, then the fallback
 // http.Handler will be called instead.
 func MapHandler(pathsToUrls map[string]string, fallback http.Handler) http.HandlerFunc {
-	//	TODO: Implement this...
+	// define the returned handler func
+	return func(w http.ResponseWriter, r *http.Request) {
+		// get path from Request
+		path := r.URL.Path
 
-	// iterate over map, create a redirect route for each item
+		// check if key (path from request) exits in map
+		if dest, ok := pathsToUrls[path]; ok {
+			// if so, create a redirect to the value of the map (dest)
+			http.Redirect(w, r, dest, http.StatusFound)
+			return
+		}
 
-	return "https://github.com/gophercises/urlshort/tree/solution"
+		// serve fallback
+		fallback.ServeHTTP(w, r)
+	}
 }
 
 // YAMLHandler will parse the provided YAML and then return
